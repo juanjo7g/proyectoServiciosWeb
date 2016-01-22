@@ -18,18 +18,19 @@ public class Usuario {
 
 	@Autowired
 	UsuarioBL usuarioBL;
-	
+
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String autenticar(@QueryParam("login") String login, @QueryParam("password") String password) {
-		try{
-			if(!usuarioBL.validar(login, password)){
+		try {
+			if (!usuarioBL.validar(login, password)) {
 				return "No valido";
 			}
-			
-		}catch(MyException e){
+
+		} catch (MyException e) {
 			return e.getMessage();
 		}
-		return "Valido";
+		// return "Valido";
+		return "";
 	}
 }

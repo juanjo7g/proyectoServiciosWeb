@@ -15,13 +15,31 @@ cliente.controller('ContLogin', function($scope) {
 
 });
 
-cliente.services('usuario', function($http) {
-	
+cliente.service('usuario', function($http) {
+
 	this.validar = function(user, pws) {
 		return $http({
-			method: 'GET',
-			url: '',
-			
+			method : 'GET',
+			url : 'http://localhost:8080/proyectoServiciosWeb/rest/Usuario',
+			params : {
+				login : user,
+				password : pws
+			}
 		})
 	}
-})
+});
+
+cliente.controller('ContLogin', function($scope, usuario) {
+
+	$scope.validar = function() {
+		usuario.validar($scope.nombreUsuario, $scope.contrasena).success(
+				function(data) {
+					if (data != '') {
+						alert(data);
+					} else {
+						alert('Valido');
+					}
+				})
+
+	}
+});

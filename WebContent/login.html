@@ -1,11 +1,13 @@
 <form name="login">
 	<div>
 		<div>
-			<label>Nombre de usuario: </label> <input type="text" required />
+			<label>Nombre de usuario: </label> <input type="text" required
+				ng-model="nombreUsuario" />
 		</div>
 		<div>
-			<label>Contraseña: </label> <input type="password" required />
+			<label>Contraseña: </label> <input type="password" required
+				ng-model="contrasena" />
 		</div>
-		<button type="submit">Validar</button>
+		<button type="submit" ng-click="validar(nombreUsuario, contrasena)">Validar</button>
 	</div>
 </form>
