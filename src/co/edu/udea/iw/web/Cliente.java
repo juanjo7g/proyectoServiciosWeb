@@ -41,7 +41,7 @@ public class Cliente {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ClienteWS> crearCliente() {
+	public List<ClienteWS> listarClientes() {
 
 		List<ClienteWS> lista = new ArrayList<>();
 		try {

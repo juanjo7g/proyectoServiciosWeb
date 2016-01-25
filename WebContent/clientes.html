@@ -1,0 +1,37 @@
+<h1>Clientes</h1>
+
+<form name="nuevoCliente" id="form" ng-submit="crearCliente(nuevoCliente)">
+<label>Cedula</label>
+<input type="text" ng-model="nuevoCliente.cedula" required/>
+
+<label>Nombres</label>
+<input type="text" ng-model="nuevoCliente.nombres" required/>
+
+<label>Apellidos</label>
+<input type="text" ng-model="nuevoCliente.apellidos" required/>
+
+<label>email</label>
+<input type="email" ng-model="nuevoCliente.email" required/>
+
+<input type="submit" value="Crear"/>
+</form>
+
+
+<table id="table-1">
+	<thead>
+		<tr>
+			<th>Cedula</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="cliente in clientes">
+			<td>{{cliente.cedula}}</td>
+			<td>{{cliente.nombres}}</td>
+			<td>{{cliente.apellidos}}</td>
+			<td>{{cliente.email}}</td>
+		</tr>
+	</tbody>
+</table>
