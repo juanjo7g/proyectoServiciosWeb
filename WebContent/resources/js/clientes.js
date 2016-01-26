@@ -1,5 +1,5 @@
 /**
- * 
+ * linea de codigo
  */
 
 var cliente = angular.module('Clientes', [ 'ngRoute', 'ngCookies' ]);
@@ -15,10 +15,6 @@ cliente.config([ '$routeProvider', function($routeProvider) {
 			controller : 'ContCliente'
 		});
 } ]);
-
-cliente.controller('ContLogin', function($scope) {
-
-});
 
 cliente.service('usuario', function($http) {
 
@@ -59,7 +55,7 @@ cliente.service('cliente', function($http) {
 });
 
 
-cliente.controller('ContLogin', function($scope, usuario, $location) {
+cliente.controller('ContLogin', function($scope, usuario, $location, $cookies) {
 
 	$scope.validar = function() {
 		usuario.validar($scope.nombreUsuario, $scope.contrasena).success(
@@ -68,6 +64,7 @@ cliente.controller('ContLogin', function($scope, usuario, $location) {
 						alert(data);
 					} else {
 						alert('Valido');
+						$cookies.nombreUsuario = $scope.nombreUsuario;
 						$location.path("/clientes");
 					}
 				})
@@ -75,8 +72,7 @@ cliente.controller('ContLogin', function($scope, usuario, $location) {
 	}
 });
 
-
-cliente.controller('ContCliente', function($scope, cliente, $location) {
+cliente.controller('ContCliente', function($scope, cliente, $location, $cookies) {
 	$scope.nuevoCliente={};
 	$scope.listar = function() {
 		cliente.listar().success(
@@ -92,7 +88,7 @@ cliente.controller('ContCliente', function($scope, cliente, $location) {
 	}
 	
 	$scope.crearCliente= function(nuevoCliente){
-		nuevoCliente.usuarioCrea = "juan";
+		nuevoCliente.usuarioCrea = $cookies.nombreUsuario;
 		cliente.crear(nuevoCliente).success(
 				function(data) {
 					if (data == 'Cliente creado correctamente') {
@@ -105,6 +101,13 @@ cliente.controller('ContCliente', function($scope, cliente, $location) {
 				})
 	}
 	
-	
 	$scope.listar();
+});
+
+cliente.run(function($rootScope, $cookies, $location) {
+	$rootScope.$on('$routeChangeStart', function() {
+		if(typeof($cookies.nombreUsuario) == 'undefined'){
+			$location.url('/');
+		}
+	});
 });
